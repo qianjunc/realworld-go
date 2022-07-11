@@ -1,0 +1,121 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Article {
+  id: ID!
+  slug: String!
+  title: String!
+  description: String!
+  body: String!
+  taglist: [Tag!]!
+  createdAt: String!
+  updatedAt: String!
+  favorite: Boolean! # return false when there is no auth
+  favoriteCount: Int!
+  author: Profile!
+}
+
+type User {
+  id: ID!
+  token: String!
+  email: String!
+  username: String!
+  bio: String
+  image: String
+}
+
+type Profile {
+  id: ID!
+  username: String!
+  bio: String
+  image: String
+  following: Boolean!
+}
+
+type Comment {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+  body: String!
+  author: Profile!
+}
+
+type Tag {
+  id: ID!
+  tagStr: String!
+}
+
+type Query {
+  # user related queries
+  user: User
+  # profile related queries
+  profile(username: String!): Profile
+  # tags related queries
+  allTags: [Tag!]!
+  # articles related queries
+  articles: [Article]
+  articlesFeed: [Article]
+  article(slug: String!): Article
+  # comments related queries
+  comments(slug: String!): [Comment!]
+}
+
+input NewUser {
+  username: String!
+  email: String!
+  password: String!
+}
+
+# at least one field is required
+input UpdateUser {
+  username: String
+  email: String
+  bio: String
+  image: String
+}
+
+input Login {
+  username: String!
+  password: String!
+}
+
+input newArticle {
+  title: String!
+  description: String!
+  body: String!
+  tagslist: [String!]!
+}
+
+input updateArticle {
+  title: String!
+  description: String!
+  body: String!
+}
+
+input RefreshTokenInput{
+  token: String!
+}
+
+type Mutation {
+  # user related mutations
+  createUser(input: NewUser!): User!
+  updateUser(input: UpdateUser!): User!
+  login(input: Login!): User!
+  refreshToken(input: RefreshTokenInput!): String!
+
+  # profile related mutations
+  followProfile(username: String!): Profile!
+  unfollowProfile(username: String!): Profile!
+
+  # article related mutations
+  createArticle(input: newArticle!): Article
+  updateArticle(slug: String!, input: updateArticle!): Article
+  deleteArticle(slug: String!): Boolean
+  favoriteArticle(slug: String!): Article
+  unfavoriteArticle(slug: String!): Article
+
+  # comment related mutations
+  createComment(slug: String!, body: String!): Comment
+  deleteComment(slug: String!, id: ID!): Boolean
+}
