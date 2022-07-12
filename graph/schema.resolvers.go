@@ -13,17 +13,38 @@ import (
 
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
-	panic(fmt.Errorf("not implemented"))
+	user := model.User{
+		Token:    "our dummy token",
+		Email:    "dummy email",
+		Username: "dummy",
+		Bio:      nil,
+		Image:    nil,
+	}
+	return &user, nil
 }
 
 // UpdateUser is the resolver for the updateUser field.
 func (r *mutationResolver) UpdateUser(ctx context.Context, input model.UpdateUser) (*model.User, error) {
-	panic(fmt.Errorf("not implemented"))
+	user := model.User{
+		Token:    "our dummy token",
+		Email:    "dummy email",
+		Username: "dummy",
+		Bio:      nil,
+		Image:    nil,
+	}
+	return &user, nil
 }
 
 // Login is the resolver for the login field.
 func (r *mutationResolver) Login(ctx context.Context, input model.Login) (*model.User, error) {
-	panic(fmt.Errorf("not implemented"))
+	user := model.User{
+		Token:    "our dummy token",
+		Email:    "dummy email",
+		Username: "dummy",
+		Bio:      nil,
+		Image:    nil,
+	}
+	return &user, nil
 }
 
 // RefreshToken is the resolver for the refreshToken field.
@@ -78,7 +99,14 @@ func (r *mutationResolver) DeleteComment(ctx context.Context, slug string, id st
 
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context) (*model.User, error) {
-	panic(fmt.Errorf("not implemented"))
+	user := model.User{
+		Token:    "our dummy token",
+		Email:    "dummy email",
+		Username: "dummy",
+		Bio:      nil,
+		Image:    nil,
+	}
+	return &user, nil
 }
 
 // Profile is the resolver for the profile field.
