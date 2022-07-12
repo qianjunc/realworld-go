@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS realworld.Users(
+    ID INT NOT NULL UNIQUE AUTO_INCREMENT,
+    Username VARCHAR (127) NOT NULL UNIQUE,
+    Password VARCHAR (127) NOT NULL,
+    Email VARCHAR(127) NOT NULL, 
+    Bio TEXT,
+    Image Text,
+    PRIMARY KEY (ID)
+);
