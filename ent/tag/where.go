@@ -5,7 +5,7 @@ package tag
 import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/qianjunc/realword/ent/predicate"
+	"github.com/qianjunc/realworld/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

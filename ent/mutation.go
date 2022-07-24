@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/qianjunc/realword/ent/article"
-	"github.com/qianjunc/realword/ent/comment"
-	"github.com/qianjunc/realword/ent/predicate"
-	"github.com/qianjunc/realword/ent/tag"
-	"github.com/qianjunc/realword/ent/user"
+	"github.com/qianjunc/realworld/ent/article"
+	"github.com/qianjunc/realworld/ent/comment"
+	"github.com/qianjunc/realworld/ent/predicate"
+	"github.com/qianjunc/realworld/ent/tag"
+	"github.com/qianjunc/realworld/ent/user"
 
 	"entgo.io/ent"
 )

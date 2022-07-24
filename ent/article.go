@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realword/ent/article"
-	"github.com/qianjunc/realword/ent/user"
+	"github.com/qianjunc/realworld/ent/article"
+	"github.com/qianjunc/realworld/ent/user"
 )
 
 // Article is the model entity for the Article schema.
@@ -49,6 +49,8 @@ type ArticleEdges struct {
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [4]bool
+	// totalCount holds the count of the edges above.
+	totalCount [4]*int
 }
 
 // ArticleAuthorOrErr returns the ArticleAuthor value or an error if the edge

@@ -9,8 +9,8 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realword/ent/article"
-	"github.com/qianjunc/realword/ent/tag"
+	"github.com/qianjunc/realworld/ent/article"
+	"github.com/qianjunc/realworld/ent/tag"
 )
 
 // TagCreate is the builder for creating a Tag entity.

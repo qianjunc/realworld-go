@@ -9,8 +9,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realword/ent/predicate"
-	"github.com/qianjunc/realword/ent/tag"
+	"github.com/qianjunc/realworld/ent/predicate"
+	"github.com/qianjunc/realworld/ent/tag"
 )
 
 // TagDelete is the builder for deleting a Tag entity.

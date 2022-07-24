@@ -11,9 +11,9 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realword/ent/article"
-	"github.com/qianjunc/realword/ent/predicate"
-	"github.com/qianjunc/realword/ent/tag"
+	"github.com/qianjunc/realworld/ent/article"
+	"github.com/qianjunc/realworld/ent/predicate"
+	"github.com/qianjunc/realworld/ent/tag"
 )
 
 // TagQuery is the builder for querying Tag entities.
@@ -27,6 +27,8 @@ type TagQuery struct {
 	predicates []predicate.Tag
 	// eager-loading edges.
 	withTagArticle *ArticleQuery
+	modifiers      []func(*sql.Selector)
+	loadTotal      []func(context.Context, []*Tag) error
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -368,6 +370,9 @@ func (tq *TagQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Tag, err
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
 	}
+	if len(tq.modifiers) > 0 {
+		_spec.Modifiers = tq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -431,11 +436,19 @@ func (tq *TagQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Tag, err
 		}
 	}
 
+	for i := range tq.loadTotal {
+		if err := tq.loadTotal[i](ctx, nodes); err != nil {
+			return nil, err
+		}
+	}
 	return nodes, nil
 }
 
 func (tq *TagQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := tq.querySpec()
+	if len(tq.modifiers) > 0 {
+		_spec.Modifiers = tq.modifiers
+	}
 	_spec.Node.Columns = tq.fields
 	if len(tq.fields) > 0 {
 		_spec.Unique = tq.unique != nil && *tq.unique

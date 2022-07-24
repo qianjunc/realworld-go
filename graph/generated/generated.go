@@ -804,7 +804,7 @@ func (ec *executionContext) field_Mutation_createArticle_args(ctx context.Contex
 	var arg0 model.NewArticle
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNnewArticle2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐNewArticle(ctx, tmp)
+		arg0, err = ec.unmarshalNnewArticle2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐNewArticle(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -843,7 +843,7 @@ func (ec *executionContext) field_Mutation_createUser_args(ctx context.Context, 
 	var arg0 model.NewUser
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNNewUser2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐNewUser(ctx, tmp)
+		arg0, err = ec.unmarshalNNewUser2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐNewUser(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -927,7 +927,7 @@ func (ec *executionContext) field_Mutation_login_args(ctx context.Context, rawAr
 	var arg0 model.Login
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNLogin2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐLogin(ctx, tmp)
+		arg0, err = ec.unmarshalNLogin2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐLogin(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -942,7 +942,7 @@ func (ec *executionContext) field_Mutation_refreshToken_args(ctx context.Context
 	var arg0 model.RefreshTokenInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRefreshTokenInput2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐRefreshTokenInput(ctx, tmp)
+		arg0, err = ec.unmarshalNRefreshTokenInput2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐRefreshTokenInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -996,7 +996,7 @@ func (ec *executionContext) field_Mutation_updateArticle_args(ctx context.Contex
 	var arg1 model.UpdateArticle
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg1, err = ec.unmarshalNupdateArticle2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐUpdateArticle(ctx, tmp)
+		arg1, err = ec.unmarshalNupdateArticle2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐUpdateArticle(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1011,7 +1011,7 @@ func (ec *executionContext) field_Mutation_updateUser_args(ctx context.Context, 
 	var arg0 model.UpdateUser
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNUpdateUser2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐUpdateUser(ctx, tmp)
+		arg0, err = ec.unmarshalNUpdateUser2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐUpdateUser(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1366,7 +1366,7 @@ func (ec *executionContext) _Article_taglist(ctx context.Context, field graphql.
 	}
 	res := resTmp.([]*ent.Tag)
 	fc.Result = res
-	return ec.marshalNTag2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐTagᚄ(ctx, field.Selections, res)
+	return ec.marshalNTag2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐTagᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Article_taglist(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1592,7 +1592,7 @@ func (ec *executionContext) _Article_author(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*model.Profile)
 	fc.Result = res
-	return ec.marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐProfile(ctx, field.Selections, res)
+	return ec.marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐProfile(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Article_author(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1824,7 +1824,7 @@ func (ec *executionContext) _Comment_author(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*model.Profile)
 	fc.Result = res
-	return ec.marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐProfile(ctx, field.Selections, res)
+	return ec.marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐProfile(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Comment_author(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1880,7 +1880,7 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createUser(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1949,7 +1949,7 @@ func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field grap
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateUser(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2018,7 +2018,7 @@ func (ec *executionContext) _Mutation_login(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_login(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2142,7 +2142,7 @@ func (ec *executionContext) _Mutation_followProfile(ctx context.Context, field g
 	}
 	res := resTmp.(*model.Profile)
 	fc.Result = res
-	return ec.marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐProfile(ctx, field.Selections, res)
+	return ec.marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐProfile(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_followProfile(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2209,7 +2209,7 @@ func (ec *executionContext) _Mutation_unfollowProfile(ctx context.Context, field
 	}
 	res := resTmp.(*model.Profile)
 	fc.Result = res
-	return ec.marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐProfile(ctx, field.Selections, res)
+	return ec.marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐProfile(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_unfollowProfile(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2273,7 +2273,7 @@ func (ec *executionContext) _Mutation_createArticle(ctx context.Context, field g
 	}
 	res := resTmp.(*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createArticle(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2349,7 +2349,7 @@ func (ec *executionContext) _Mutation_updateArticle(ctx context.Context, field g
 	}
 	res := resTmp.(*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateArticle(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2477,7 +2477,7 @@ func (ec *executionContext) _Mutation_favoriteArticle(ctx context.Context, field
 	}
 	res := resTmp.(*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_favoriteArticle(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2553,7 +2553,7 @@ func (ec *executionContext) _Mutation_unfavoriteArticle(ctx context.Context, fie
 	}
 	res := resTmp.(*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_unfavoriteArticle(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2629,7 +2629,7 @@ func (ec *executionContext) _Mutation_createComment(ctx context.Context, field g
 	}
 	res := resTmp.(*ent.Comment)
 	fc.Result = res
-	return ec.marshalOComment2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐComment(ctx, field.Selections, res)
+	return ec.marshalOComment2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐComment(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createComment(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2959,7 +2959,7 @@ func (ec *executionContext) _Query_user(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3014,7 +3014,7 @@ func (ec *executionContext) _Query_profile(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.(*model.Profile)
 	fc.Result = res
-	return ec.marshalOProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐProfile(ctx, field.Selections, res)
+	return ec.marshalOProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐProfile(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_profile(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3081,7 +3081,7 @@ func (ec *executionContext) _Query_allTags(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.([]*ent.Tag)
 	fc.Result = res
-	return ec.marshalNTag2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐTagᚄ(ctx, field.Selections, res)
+	return ec.marshalNTag2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐTagᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_allTags(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3128,7 +3128,7 @@ func (ec *executionContext) _Query_articles(ctx context.Context, field graphql.C
 	}
 	res := resTmp.([]*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_articles(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3193,7 +3193,7 @@ func (ec *executionContext) _Query_articlesFeed(ctx context.Context, field graph
 	}
 	res := resTmp.([]*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_articlesFeed(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3258,7 +3258,7 @@ func (ec *executionContext) _Query_article(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.(*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_article(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3334,7 +3334,7 @@ func (ec *executionContext) _Query_comments(ctx context.Context, field graphql.C
 	}
 	res := resTmp.([]*ent.Comment)
 	fc.Result = res
-	return ec.marshalOComment2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐCommentᚄ(ctx, field.Selections, res)
+	return ec.marshalOComment2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐCommentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_comments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -6890,7 +6890,7 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNComment2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐComment(ctx context.Context, sel ast.SelectionSet, v *ent.Comment) graphql.Marshaler {
+func (ec *executionContext) marshalNComment2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐComment(ctx context.Context, sel ast.SelectionSet, v *ent.Comment) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -6945,21 +6945,21 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 	return res
 }
 
-func (ec *executionContext) unmarshalNLogin2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐLogin(ctx context.Context, v interface{}) (model.Login, error) {
+func (ec *executionContext) unmarshalNLogin2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐLogin(ctx context.Context, v interface{}) (model.Login, error) {
 	res, err := ec.unmarshalInputLogin(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐNewUser(ctx context.Context, v interface{}) (model.NewUser, error) {
+func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐNewUser(ctx context.Context, v interface{}) (model.NewUser, error) {
 	res, err := ec.unmarshalInputNewUser(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNProfile2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐProfile(ctx context.Context, sel ast.SelectionSet, v model.Profile) graphql.Marshaler {
+func (ec *executionContext) marshalNProfile2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐProfile(ctx context.Context, sel ast.SelectionSet, v model.Profile) graphql.Marshaler {
 	return ec._Profile(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐProfile(ctx context.Context, sel ast.SelectionSet, v *model.Profile) graphql.Marshaler {
+func (ec *executionContext) marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐProfile(ctx context.Context, sel ast.SelectionSet, v *model.Profile) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -6969,7 +6969,7 @@ func (ec *executionContext) marshalNProfile2ᚖgithubᚗcomᚋqianjuncᚋrealwor
 	return ec._Profile(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNRefreshTokenInput2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐRefreshTokenInput(ctx context.Context, v interface{}) (model.RefreshTokenInput, error) {
+func (ec *executionContext) unmarshalNRefreshTokenInput2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐRefreshTokenInput(ctx context.Context, v interface{}) (model.RefreshTokenInput, error) {
 	res, err := ec.unmarshalInputRefreshTokenInput(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -7021,7 +7021,7 @@ func (ec *executionContext) marshalNString2ᚕstringᚄ(ctx context.Context, sel
 	return ret
 }
 
-func (ec *executionContext) marshalNTag2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐTagᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.Tag) graphql.Marshaler {
+func (ec *executionContext) marshalNTag2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐTagᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.Tag) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -7045,7 +7045,7 @@ func (ec *executionContext) marshalNTag2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworl
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTag2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐTag(ctx, sel, v[i])
+			ret[i] = ec.marshalNTag2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐTag(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -7065,7 +7065,7 @@ func (ec *executionContext) marshalNTag2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworl
 	return ret
 }
 
-func (ec *executionContext) marshalNTag2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐTag(ctx context.Context, sel ast.SelectionSet, v *ent.Tag) graphql.Marshaler {
+func (ec *executionContext) marshalNTag2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐTag(ctx context.Context, sel ast.SelectionSet, v *ent.Tag) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -7075,16 +7075,16 @@ func (ec *executionContext) marshalNTag2ᚖgithubᚗcomᚋqianjuncᚋrealworld�
 	return ec._Tag(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNUpdateUser2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐUpdateUser(ctx context.Context, v interface{}) (model.UpdateUser, error) {
+func (ec *executionContext) unmarshalNUpdateUser2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐUpdateUser(ctx context.Context, v interface{}) (model.UpdateUser, error) {
 	res, err := ec.unmarshalInputUpdateUser(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNUser2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v ent.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2githubᚗcomᚋqianjuncᚋrealworldᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v ent.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v *ent.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v *ent.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -7347,17 +7347,17 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
-func (ec *executionContext) unmarshalNnewArticle2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐNewArticle(ctx context.Context, v interface{}) (model.NewArticle, error) {
+func (ec *executionContext) unmarshalNnewArticle2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐNewArticle(ctx context.Context, v interface{}) (model.NewArticle, error) {
 	res, err := ec.unmarshalInputnewArticle(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNupdateArticle2githubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐUpdateArticle(ctx context.Context, v interface{}) (model.UpdateArticle, error) {
+func (ec *executionContext) unmarshalNupdateArticle2githubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐUpdateArticle(ctx context.Context, v interface{}) (model.UpdateArticle, error) {
 	res, err := ec.unmarshalInputupdateArticle(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOArticle2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐArticle(ctx context.Context, sel ast.SelectionSet, v []*ent.Article) graphql.Marshaler {
+func (ec *executionContext) marshalOArticle2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐArticle(ctx context.Context, sel ast.SelectionSet, v []*ent.Article) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -7384,7 +7384,7 @@ func (ec *executionContext) marshalOArticle2ᚕᚖgithubᚗcomᚋqianjuncᚋreal
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐArticle(ctx, sel, v[i])
+			ret[i] = ec.marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐArticle(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -7398,7 +7398,7 @@ func (ec *executionContext) marshalOArticle2ᚕᚖgithubᚗcomᚋqianjuncᚋreal
 	return ret
 }
 
-func (ec *executionContext) marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐArticle(ctx context.Context, sel ast.SelectionSet, v *ent.Article) graphql.Marshaler {
+func (ec *executionContext) marshalOArticle2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐArticle(ctx context.Context, sel ast.SelectionSet, v *ent.Article) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -7431,7 +7431,7 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) marshalOComment2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐCommentᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.Comment) graphql.Marshaler {
+func (ec *executionContext) marshalOComment2ᚕᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐCommentᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.Comment) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -7458,7 +7458,7 @@ func (ec *executionContext) marshalOComment2ᚕᚖgithubᚗcomᚋqianjuncᚋreal
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNComment2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐComment(ctx, sel, v[i])
+			ret[i] = ec.marshalNComment2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐComment(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -7478,14 +7478,14 @@ func (ec *executionContext) marshalOComment2ᚕᚖgithubᚗcomᚋqianjuncᚋreal
 	return ret
 }
 
-func (ec *executionContext) marshalOComment2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐComment(ctx context.Context, sel ast.SelectionSet, v *ent.Comment) graphql.Marshaler {
+func (ec *executionContext) marshalOComment2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐComment(ctx context.Context, sel ast.SelectionSet, v *ent.Comment) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Comment(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋgraphᚋmodelᚐProfile(ctx context.Context, sel ast.SelectionSet, v *model.Profile) graphql.Marshaler {
+func (ec *executionContext) marshalOProfile2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋgraphᚋmodelᚐProfile(ctx context.Context, sel ast.SelectionSet, v *model.Profile) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -7518,7 +7518,7 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	return res
 }
 
-func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚑgoᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v *ent.User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋqianjuncᚋrealworldᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v *ent.User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realword/ent/article"
-	"github.com/qianjunc/realword/ent/comment"
-	"github.com/qianjunc/realword/ent/user"
+	"github.com/qianjunc/realworld/ent/article"
+	"github.com/qianjunc/realworld/ent/comment"
+	"github.com/qianjunc/realworld/ent/user"
 )
 
 // Comment is the model entity for the Comment schema.
@@ -39,6 +39,8 @@ type CommentEdges struct {
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [2]bool
+	// totalCount holds the count of the edges above.
+	totalCount [2]*int
 }
 
 // CommentAuthorOrErr returns the CommentAuthor value or an error if the edge

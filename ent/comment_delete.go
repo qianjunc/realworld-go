@@ -9,8 +9,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realword/ent/comment"
-	"github.com/qianjunc/realword/ent/predicate"
+	"github.com/qianjunc/realworld/ent/comment"
+	"github.com/qianjunc/realworld/ent/predicate"
 )
 
 // CommentDelete is the builder for deleting a Comment entity.

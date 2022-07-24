@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realword/ent/user"
+	"github.com/qianjunc/realworld/ent/user"
 )
 
 // User is the model entity for the User schema.
@@ -43,6 +43,8 @@ type UserEdges struct {
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [5]bool
+	// totalCount holds the count of the edges above.
+	totalCount [5]*int
 }
 
 // FollowersOrErr returns the Followers value or an error if the edge
