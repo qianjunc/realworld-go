@@ -11,9 +11,9 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/qianjunc/realworld-go/ent"
-	"github.com/qianjunc/realworld-go/graph"
-	"github.com/qianjunc/realworld-go/graph/generated"
+	"github.com/qianjunc/realworld/ent"
+	"github.com/qianjunc/realworld/graph"
+	"github.com/qianjunc/realworld/graph/generated"
 )
 
 const defaultPort = "8080"
