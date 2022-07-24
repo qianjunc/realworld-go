@@ -10,10 +10,10 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/qianjunc/realworld-go/ent/article"
-	"github.com/qianjunc/realworld-go/ent/comment"
-	"github.com/qianjunc/realworld-go/ent/tag"
-	"github.com/qianjunc/realworld-go/ent/user"
+	"github.com/qianjunc/realword/ent/article"
+	"github.com/qianjunc/realword/ent/comment"
+	"github.com/qianjunc/realword/ent/tag"
+	"github.com/qianjunc/realword/ent/user"
 )
 
 // ent aliases to avoid import conflicts in user's code.

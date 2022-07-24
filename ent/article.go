@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realworld-go/ent/article"
-	"github.com/qianjunc/realworld-go/ent/user"
+	"github.com/qianjunc/realword/ent/article"
+	"github.com/qianjunc/realword/ent/user"
 )
 
 // Article is the model entity for the Article schema.

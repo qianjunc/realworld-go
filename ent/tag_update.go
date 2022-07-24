@@ -10,9 +10,9 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realworld-go/ent/article"
-	"github.com/qianjunc/realworld-go/ent/predicate"
-	"github.com/qianjunc/realworld-go/ent/tag"
+	"github.com/qianjunc/realword/ent/article"
+	"github.com/qianjunc/realword/ent/predicate"
+	"github.com/qianjunc/realword/ent/tag"
 )
 
 // TagUpdate is the builder for updating Tag entities.

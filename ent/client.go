@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/qianjunc/realworld-go/ent/migrate"
+	"github.com/qianjunc/realword/ent/migrate"
 
-	"github.com/qianjunc/realworld-go/ent/article"
-	"github.com/qianjunc/realworld-go/ent/comment"
-	"github.com/qianjunc/realworld-go/ent/tag"
-	"github.com/qianjunc/realworld-go/ent/user"
+	"github.com/qianjunc/realword/ent/article"
+	"github.com/qianjunc/realword/ent/comment"
+	"github.com/qianjunc/realword/ent/tag"
+	"github.com/qianjunc/realword/ent/user"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"

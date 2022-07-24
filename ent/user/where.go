@@ -5,7 +5,7 @@ package user
 import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/qianjunc/realworld-go/ent/predicate"
+	"github.com/qianjunc/realword/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/qianjunc/realworld-go/ent"
+	"github.com/qianjunc/realword/ent"
 )
 
 // The ArticleFunc type is an adapter to allow the use of ordinary

@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realworld-go/ent/user"
+	"github.com/qianjunc/realword/ent/user"
 )
 
 // User is the model entity for the User schema.

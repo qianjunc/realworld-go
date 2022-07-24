@@ -5,12 +5,12 @@ package enttest
 import (
 	"context"
 
-	"github.com/qianjunc/realworld-go/ent"
+	"github.com/qianjunc/realword/ent"
 	// required by schema hooks.
-	_ "github.com/qianjunc/realworld-go/ent/runtime"
+	_ "github.com/qianjunc/realword/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
-	"github.com/qianjunc/realworld-go/ent/migrate"
+	"github.com/qianjunc/realword/ent/migrate"
 )
 
 type (

@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realworld-go/ent/tag"
+	"github.com/qianjunc/realword/ent/tag"
 )
 
 // Tag is the model entity for the Tag schema.

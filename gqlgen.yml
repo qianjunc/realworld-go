@@ -43,7 +43,7 @@ resolver:
 # if they match it will use them, otherwise it will generate them.
 autobind:
 - github.com/qianjunc/realworld/ent
-#  - "github.com/qianjunc/realworld-go/graph/model"
+#  - "github.com/qianjunc/realword/graph/model"
 
 # This section declares type mapping between the GraphQL and go type systems
 #

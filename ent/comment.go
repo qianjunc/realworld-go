@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realworld-go/ent/article"
-	"github.com/qianjunc/realworld-go/ent/comment"
-	"github.com/qianjunc/realworld-go/ent/user"
+	"github.com/qianjunc/realword/ent/article"
+	"github.com/qianjunc/realword/ent/comment"
+	"github.com/qianjunc/realword/ent/user"
 )
 
 // Comment is the model entity for the Comment schema.
