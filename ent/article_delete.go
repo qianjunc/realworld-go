@@ -5,12 +5,12 @@ package ent
 import (
 	"context"
 	"fmt"
+	"testrealworld/ent/article"
+	"testrealworld/ent/predicate"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realworld/ent/article"
-	"github.com/qianjunc/realworld/ent/predicate"
 )
 
 // ArticleDelete is the builder for deleting a Article entity.

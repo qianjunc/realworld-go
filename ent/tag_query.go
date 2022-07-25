@@ -7,13 +7,13 @@ import (
 	"database/sql/driver"
 	"fmt"
 	"math"
+	"testrealworld/ent/article"
+	"testrealworld/ent/predicate"
+	"testrealworld/ent/tag"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realworld/ent/article"
-	"github.com/qianjunc/realworld/ent/predicate"
-	"github.com/qianjunc/realworld/ent/tag"
 )
 
 // TagQuery is the builder for querying Tag entities.

@@ -6,14 +6,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"testrealworld/ent/article"
+	"testrealworld/ent/comment"
+	"testrealworld/ent/tag"
+	"testrealworld/ent/user"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/qianjunc/realworld/ent/article"
-	"github.com/qianjunc/realworld/ent/comment"
-	"github.com/qianjunc/realworld/ent/tag"
-	"github.com/qianjunc/realworld/ent/user"
 )
 
 // ent aliases to avoid import conflicts in user's code.

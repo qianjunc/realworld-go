@@ -5,9 +5,9 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"testrealworld/ent/tag"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realworld/ent/tag"
 )
 
 // Tag is the model entity for the Tag schema.

@@ -6,12 +6,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"testrealworld/ent/article"
+	"testrealworld/ent/comment"
+	"testrealworld/ent/user"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realworld/ent/article"
-	"github.com/qianjunc/realworld/ent/comment"
-	"github.com/qianjunc/realworld/ent/user"
 )
 
 // CommentCreate is the builder for creating a Comment entity.

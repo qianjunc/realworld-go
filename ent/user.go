@@ -5,9 +5,9 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"testrealworld/ent/user"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realworld/ent/user"
 )
 
 // User is the model entity for the User schema.

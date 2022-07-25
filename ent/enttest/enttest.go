@@ -4,13 +4,13 @@ package enttest
 
 import (
 	"context"
-
-	"github.com/qianjunc/realworld/ent"
+	"testrealworld/ent"
 	// required by schema hooks.
-	_ "github.com/qianjunc/realworld/ent/runtime"
+	_ "testrealworld/ent/runtime"
+
+	"testrealworld/ent/migrate"
 
 	"entgo.io/ent/dialect/sql/schema"
-	"github.com/qianjunc/realworld/ent/migrate"
 )
 
 type (

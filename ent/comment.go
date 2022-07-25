@@ -5,11 +5,11 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"testrealworld/ent/article"
+	"testrealworld/ent/comment"
+	"testrealworld/ent/user"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realworld/ent/article"
-	"github.com/qianjunc/realworld/ent/comment"
-	"github.com/qianjunc/realworld/ent/user"
 )
 
 // Comment is the model entity for the Comment schema.

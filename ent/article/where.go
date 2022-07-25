@@ -3,9 +3,10 @@
 package article
 
 import (
+	"testrealworld/ent/predicate"
+
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/qianjunc/realworld/ent/predicate"
 )
 
 // ID filters vertices based on their ID field.

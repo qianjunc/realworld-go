@@ -5,12 +5,12 @@ package ent
 import (
 	"context"
 	"fmt"
+	"testrealworld/ent/comment"
+	"testrealworld/ent/predicate"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realworld/ent/comment"
-	"github.com/qianjunc/realworld/ent/predicate"
 )
 
 // CommentDelete is the builder for deleting a Comment entity.

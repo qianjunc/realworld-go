@@ -8,6 +8,10 @@ import (
 	"fmt"
 	"sync"
 	"sync/atomic"
+	"testrealworld/ent/article"
+	"testrealworld/ent/comment"
+	"testrealworld/ent/tag"
+	"testrealworld/ent/user"
 
 	"entgo.io/contrib/entgql"
 	"entgo.io/ent/dialect"
@@ -15,10 +19,6 @@ import (
 	"entgo.io/ent/dialect/sql/schema"
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/hashicorp/go-multierror"
-	"github.com/qianjunc/realworld/ent/article"
-	"github.com/qianjunc/realworld/ent/comment"
-	"github.com/qianjunc/realworld/ent/tag"
-	"github.com/qianjunc/realworld/ent/user"
 	"golang.org/x/sync/semaphore"
 )
 

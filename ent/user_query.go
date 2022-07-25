@@ -7,14 +7,14 @@ import (
 	"database/sql/driver"
 	"fmt"
 	"math"
+	"testrealworld/ent/article"
+	"testrealworld/ent/comment"
+	"testrealworld/ent/predicate"
+	"testrealworld/ent/user"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realworld/ent/article"
-	"github.com/qianjunc/realworld/ent/comment"
-	"github.com/qianjunc/realworld/ent/predicate"
-	"github.com/qianjunc/realworld/ent/user"
 )
 
 // UserQuery is the builder for querying User entities.

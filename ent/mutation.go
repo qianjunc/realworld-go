@@ -7,12 +7,11 @@ import (
 	"errors"
 	"fmt"
 	"sync"
-
-	"github.com/qianjunc/realworld/ent/article"
-	"github.com/qianjunc/realworld/ent/comment"
-	"github.com/qianjunc/realworld/ent/predicate"
-	"github.com/qianjunc/realworld/ent/tag"
-	"github.com/qianjunc/realworld/ent/user"
+	"testrealworld/ent/article"
+	"testrealworld/ent/comment"
+	"testrealworld/ent/predicate"
+	"testrealworld/ent/tag"
+	"testrealworld/ent/user"
 
 	"entgo.io/ent"
 )

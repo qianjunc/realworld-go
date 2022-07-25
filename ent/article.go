@@ -5,10 +5,10 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"testrealworld/ent/article"
+	"testrealworld/ent/user"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realworld/ent/article"
-	"github.com/qianjunc/realworld/ent/user"
 )
 
 // Article is the model entity for the Article schema.
