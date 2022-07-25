@@ -18,6 +18,7 @@ func (User) Fields() []ent.Field {
 		field.String("username"),
 		field.String("bio"),
 		field.String("image"),
+		field.String("password"),
 	}
 }
 
