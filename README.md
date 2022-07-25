@@ -1,4 +1,4 @@
-# realworld-go
+# realword-go
 
 ## start the server
 `go run server.go`

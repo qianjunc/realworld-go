@@ -5,9 +5,9 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"testrealworld/ent/tag"
 
 	"entgo.io/ent/dialect/sql"
-	"github.com/qianjunc/realworld-go/ent/tag"
 )
 
 // Tag is the model entity for the Tag schema.
@@ -29,6 +29,8 @@ type TagEdges struct {
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
+	// totalCount holds the count of the edges above.
+	totalCount [1]*int
 }
 
 // TagArticleOrErr returns the TagArticle value or an error if the edge

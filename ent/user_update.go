@@ -6,14 +6,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"testrealworld/ent/article"
+	"testrealworld/ent/comment"
+	"testrealworld/ent/predicate"
+	"testrealworld/ent/user"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/qianjunc/realworld-go/ent/article"
-	"github.com/qianjunc/realworld-go/ent/comment"
-	"github.com/qianjunc/realworld-go/ent/predicate"
-	"github.com/qianjunc/realworld-go/ent/user"
 )
 
 // UserUpdate is the builder for updating User entities.
@@ -50,6 +50,12 @@ func (uu *UserUpdate) SetBio(s string) *UserUpdate {
 // SetImage sets the "image" field.
 func (uu *UserUpdate) SetImage(s string) *UserUpdate {
 	uu.mutation.SetImage(s)
+	return uu
+}
+
+// SetPassword sets the "password" field.
+func (uu *UserUpdate) SetPassword(s string) *UserUpdate {
+	uu.mutation.SetPassword(s)
 	return uu
 }
 
@@ -336,6 +342,13 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: user.FieldImage,
+		})
+	}
+	if value, ok := uu.mutation.Password(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldPassword,
 		})
 	}
 	if uu.mutation.FollowersCleared() {
@@ -648,6 +661,12 @@ func (uuo *UserUpdateOne) SetBio(s string) *UserUpdateOne {
 // SetImage sets the "image" field.
 func (uuo *UserUpdateOne) SetImage(s string) *UserUpdateOne {
 	uuo.mutation.SetImage(s)
+	return uuo
+}
+
+// SetPassword sets the "password" field.
+func (uuo *UserUpdateOne) SetPassword(s string) *UserUpdateOne {
+	uuo.mutation.SetPassword(s)
 	return uuo
 }
 
@@ -964,6 +983,13 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Type:   field.TypeString,
 			Value:  value,
 			Column: user.FieldImage,
+		})
+	}
+	if value, ok := uuo.mutation.Password(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldPassword,
 		})
 	}
 	if uuo.mutation.FollowersCleared() {

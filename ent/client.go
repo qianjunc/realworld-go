@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/qianjunc/realworld-go/ent/migrate"
+	"testrealworld/ent/migrate"
 
-	"github.com/qianjunc/realworld-go/ent/article"
-	"github.com/qianjunc/realworld-go/ent/comment"
-	"github.com/qianjunc/realworld-go/ent/tag"
-	"github.com/qianjunc/realworld-go/ent/user"
+	"testrealworld/ent/article"
+	"testrealworld/ent/comment"
+	"testrealworld/ent/tag"
+	"testrealworld/ent/user"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
@@ -32,6 +32,8 @@ type Client struct {
 	Tag *TagClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
+	// additional fields for node api
+	tables tables
 }
 
 // NewClient creates a new client configured with the given options.

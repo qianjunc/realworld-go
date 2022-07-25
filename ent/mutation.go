@@ -7,12 +7,11 @@ import (
 	"errors"
 	"fmt"
 	"sync"
-
-	"github.com/qianjunc/realworld-go/ent/article"
-	"github.com/qianjunc/realworld-go/ent/comment"
-	"github.com/qianjunc/realworld-go/ent/predicate"
-	"github.com/qianjunc/realworld-go/ent/tag"
-	"github.com/qianjunc/realworld-go/ent/user"
+	"testrealworld/ent/article"
+	"testrealworld/ent/comment"
+	"testrealworld/ent/predicate"
+	"testrealworld/ent/tag"
+	"testrealworld/ent/user"
 
 	"entgo.io/ent"
 )
@@ -1982,6 +1981,7 @@ type UserMutation struct {
 	username          *string
 	bio               *string
 	image             *string
+	password          *string
 	clearedFields     map[string]struct{}
 	followers         map[int]struct{}
 	removedfollowers  map[int]struct{}
@@ -2243,6 +2243,42 @@ func (m *UserMutation) OldImage(ctx context.Context) (v string, err error) {
 // ResetImage resets all changes to the "image" field.
 func (m *UserMutation) ResetImage() {
 	m.image = nil
+}
+
+// SetPassword sets the "password" field.
+func (m *UserMutation) SetPassword(s string) {
+	m.password = &s
+}
+
+// Password returns the value of the "password" field in the mutation.
+func (m *UserMutation) Password() (r string, exists bool) {
+	v := m.password
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPassword returns the old "password" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldPassword(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldPassword is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldPassword requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPassword: %w", err)
+	}
+	return oldValue.Password, nil
+}
+
+// ResetPassword resets all changes to the "password" field.
+func (m *UserMutation) ResetPassword() {
+	m.password = nil
 }
 
 // AddFollowerIDs adds the "followers" edge to the User entity by ids.
@@ -2534,7 +2570,7 @@ func (m *UserMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *UserMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 5)
 	if m.email != nil {
 		fields = append(fields, user.FieldEmail)
 	}
@@ -2546,6 +2582,9 @@ func (m *UserMutation) Fields() []string {
 	}
 	if m.image != nil {
 		fields = append(fields, user.FieldImage)
+	}
+	if m.password != nil {
+		fields = append(fields, user.FieldPassword)
 	}
 	return fields
 }
@@ -2563,6 +2602,8 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.Bio()
 	case user.FieldImage:
 		return m.Image()
+	case user.FieldPassword:
+		return m.Password()
 	}
 	return nil, false
 }
@@ -2580,6 +2621,8 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldBio(ctx)
 	case user.FieldImage:
 		return m.OldImage(ctx)
+	case user.FieldPassword:
+		return m.OldPassword(ctx)
 	}
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
@@ -2616,6 +2659,13 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetImage(v)
+		return nil
+	case user.FieldPassword:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPassword(v)
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
@@ -2677,6 +2727,9 @@ func (m *UserMutation) ResetField(name string) error {
 		return nil
 	case user.FieldImage:
 		m.ResetImage()
+		return nil
+	case user.FieldPassword:
+		m.ResetPassword()
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
