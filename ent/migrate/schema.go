@@ -82,6 +82,7 @@ var (
 		{Name: "bio", Type: field.TypeString},
 		{Name: "image", Type: field.TypeString},
 		{Name: "password", Type: field.TypeString},
+		{Name: "token", Type: field.TypeString},
 	}
 	// UsersTable holds the schema information for the "users" table.
 	UsersTable = &schema.Table{

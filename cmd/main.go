@@ -17,7 +17,7 @@ import (
 
 func main() {
 	// Create ent.Client and run the schema migration.
-	client, err := ent.Open("mysql", "root:dbpass@tcp(localhost:3306)/realworld?parseTime=True")
+	client, err := ent.Open("mysql", "root:dbpass@tcp(localhost:3306)/hackernews?parseTime=True")
 	if err != nil {
 		log.Fatal("opening ent client", err)
 	}

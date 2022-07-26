@@ -6,53 +6,49 @@ package testrealworld
 import (
 	"context"
 	"fmt"
+	"testrealworld/ent"
 )
 
-// CreateUser is the resolver for the createUser field.
-func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (*User, error) {
-	fmt.Printf("%v, %v, %v\n", input.Email, input.Password, input.Username)
-	newUser, err := r.client.User.Create().
-		SetEmail(input.Email).
-		SetPassword(input.Password).
-		SetUsername(input.Username).
-		SetBio("bio").
-		SetImage("image").
-		Save(ctx)
-	if err != nil {
-		fmt.Println(" ------------here wrong------------")
-		return nil, err
-	}
+// Taglist is the resolver for the taglist field.
+func (r *articleResolver) Taglist(ctx context.Context, obj *ent.Article) ([]*ent.Tag, error) {
+	panic(fmt.Errorf("not implemented"))
+}
 
-	return &User{
-		ID:       newUser.ID,
-		Token:    "", // add authentication later
-		Email:    newUser.Email,
-		Username: newUser.Username,
-		Bio:      nil,
-		Image:    nil,
-	}, nil
+// Favorite is the resolver for the favorite field.
+func (r *articleResolver) Favorite(ctx context.Context, obj *ent.Article) (bool, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// Author is the resolver for the author field.
+func (r *articleResolver) Author(ctx context.Context, obj *ent.Article) (*Profile, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// Author is the resolver for the author field.
+func (r *commentResolver) Author(ctx context.Context, obj *ent.Comment) (*Profile, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// CreateUser is the resolver for the createUser field.
+func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (*ent.User, error) {
+	return r.client.User.Create().
+		SetBio("").
+		SetEmail(input.Email).
+		SetImage("").
+		SetPassword(input.Password).
+		SetToken("").
+		SetUsername(input.Username).
+		Save(ctx)
 }
 
 // UpdateUser is the resolver for the updateUser field.
-func (r *mutationResolver) UpdateUser(ctx context.Context, input UpdateUser) (*User, error) {
+func (r *mutationResolver) UpdateUser(ctx context.Context, input UpdateUser) (*ent.User, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // Login is the resolver for the login field.
-func (r *mutationResolver) Login(ctx context.Context, input Login) (*User, error) {
-	users, err := r.client.User.Query().All(ctx)
-	if err != nil {
-		return nil, err
-	}
-	me := users[0]
-	return &User{
-		ID:       me.ID,
-		Token:    "", // add authentication later
-		Email:    me.Email,
-		Username: me.Username,
-		Bio:      &me.Bio,
-		Image:    &me.Image,
-	}, nil
+func (r *mutationResolver) Login(ctx context.Context, input Login) (*ent.User, error) {
+	panic(fmt.Errorf("not implemented"))
 }
 
 // RefreshToken is the resolver for the refreshToken field.
@@ -71,12 +67,12 @@ func (r *mutationResolver) UnfollowProfile(ctx context.Context, username string)
 }
 
 // CreateArticle is the resolver for the createArticle field.
-func (r *mutationResolver) CreateArticle(ctx context.Context, input NewArticle) (*Article, error) {
+func (r *mutationResolver) CreateArticle(ctx context.Context, input NewArticle) (*ent.Article, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // UpdateArticle is the resolver for the updateArticle field.
-func (r *mutationResolver) UpdateArticle(ctx context.Context, slug string, input UpdateArticle) (*Article, error) {
+func (r *mutationResolver) UpdateArticle(ctx context.Context, slug string, input UpdateArticle) (*ent.Article, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -86,17 +82,17 @@ func (r *mutationResolver) DeleteArticle(ctx context.Context, slug string) (*boo
 }
 
 // FavoriteArticle is the resolver for the favoriteArticle field.
-func (r *mutationResolver) FavoriteArticle(ctx context.Context, slug string) (*Article, error) {
+func (r *mutationResolver) FavoriteArticle(ctx context.Context, slug string) (*ent.Article, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // UnfavoriteArticle is the resolver for the unfavoriteArticle field.
-func (r *mutationResolver) UnfavoriteArticle(ctx context.Context, slug string) (*Article, error) {
+func (r *mutationResolver) UnfavoriteArticle(ctx context.Context, slug string) (*ent.Article, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // CreateComment is the resolver for the createComment field.
-func (r *mutationResolver) CreateComment(ctx context.Context, slug string, body string) (*Comment, error) {
+func (r *mutationResolver) CreateComment(ctx context.Context, slug string, body string) (*ent.Comment, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -106,7 +102,7 @@ func (r *mutationResolver) DeleteComment(ctx context.Context, slug string, id in
 }
 
 // User is the resolver for the user field.
-func (r *queryResolver) User(ctx context.Context) (*User, error) {
+func (r *queryResolver) User(ctx context.Context) (*ent.User, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -116,29 +112,40 @@ func (r *queryResolver) Profile(ctx context.Context, username string) (*Profile,
 }
 
 // AllTags is the resolver for the allTags field.
-func (r *queryResolver) AllTags(ctx context.Context) ([]*Tag, error) {
+func (r *queryResolver) AllTags(ctx context.Context) ([]*ent.Tag, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // Articles is the resolver for the articles field.
-func (r *queryResolver) Articles(ctx context.Context) ([]*Article, error) {
+func (r *queryResolver) Articles(ctx context.Context) ([]*ent.Article, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // ArticlesFeed is the resolver for the articlesFeed field.
-func (r *queryResolver) ArticlesFeed(ctx context.Context) ([]*Article, error) {
+func (r *queryResolver) ArticlesFeed(ctx context.Context) ([]*ent.Article, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // Article is the resolver for the article field.
-func (r *queryResolver) Article(ctx context.Context, slug string) (*Article, error) {
+func (r *queryResolver) Article(ctx context.Context, slug string) (*ent.Article, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // Comments is the resolver for the comments field.
-func (r *queryResolver) Comments(ctx context.Context, slug string) ([]*Comment, error) {
+func (r *queryResolver) Comments(ctx context.Context, slug string) ([]*ent.Comment, error) {
 	panic(fmt.Errorf("not implemented"))
 }
+
+// Token is the resolver for the token field.
+func (r *userResolver) Token(ctx context.Context, obj *ent.User) (string, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+// Article returns ArticleResolver implementation.
+func (r *Resolver) Article() ArticleResolver { return &articleResolver{r} }
+
+// Comment returns CommentResolver implementation.
+func (r *Resolver) Comment() CommentResolver { return &commentResolver{r} }
 
 // Mutation returns MutationResolver implementation.
 func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
@@ -146,5 +153,11 @@ func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
+// User returns UserResolver implementation.
+func (r *Resolver) User() UserResolver { return &userResolver{r} }
+
+type articleResolver struct{ *Resolver }
+type commentResolver struct{ *Resolver }
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+type userResolver struct{ *Resolver }

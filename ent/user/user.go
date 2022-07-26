@@ -17,6 +17,8 @@ const (
 	FieldImage = "image"
 	// FieldPassword holds the string denoting the password field in the database.
 	FieldPassword = "password"
+	// FieldToken holds the string denoting the token field in the database.
+	FieldToken = "token"
 	// EdgeFollowers holds the string denoting the followers edge name in mutations.
 	EdgeFollowers = "followers"
 	// EdgeFollowing holds the string denoting the following edge name in mutations.
@@ -62,6 +64,7 @@ var Columns = []string{
 	FieldBio,
 	FieldImage,
 	FieldPassword,
+	FieldToken,
 }
 
 var (

@@ -59,6 +59,12 @@ func (uu *UserUpdate) SetPassword(s string) *UserUpdate {
 	return uu
 }
 
+// SetToken sets the "token" field.
+func (uu *UserUpdate) SetToken(s string) *UserUpdate {
+	uu.mutation.SetToken(s)
+	return uu
+}
+
 // AddFollowerIDs adds the "followers" edge to the User entity by IDs.
 func (uu *UserUpdate) AddFollowerIDs(ids ...int) *UserUpdate {
 	uu.mutation.AddFollowerIDs(ids...)
@@ -349,6 +355,13 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: user.FieldPassword,
+		})
+	}
+	if value, ok := uu.mutation.Token(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldToken,
 		})
 	}
 	if uu.mutation.FollowersCleared() {
@@ -667,6 +680,12 @@ func (uuo *UserUpdateOne) SetImage(s string) *UserUpdateOne {
 // SetPassword sets the "password" field.
 func (uuo *UserUpdateOne) SetPassword(s string) *UserUpdateOne {
 	uuo.mutation.SetPassword(s)
+	return uuo
+}
+
+// SetToken sets the "token" field.
+func (uuo *UserUpdateOne) SetToken(s string) *UserUpdateOne {
+	uuo.mutation.SetToken(s)
 	return uuo
 }
 
@@ -990,6 +1009,13 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Type:   field.TypeString,
 			Value:  value,
 			Column: user.FieldPassword,
+		})
+	}
+	if value, ok := uuo.mutation.Token(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldToken,
 		})
 	}
 	if uuo.mutation.FollowersCleared() {

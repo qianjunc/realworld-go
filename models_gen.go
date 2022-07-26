@@ -2,28 +2,6 @@
 
 package testrealworld
 
-type Article struct {
-	ID            int      `json:"id"`
-	Slug          string   `json:"slug"`
-	Title         string   `json:"title"`
-	Description   string   `json:"description"`
-	Body          string   `json:"body"`
-	Taglist       []*Tag   `json:"taglist"`
-	CreatedAt     string   `json:"createdAt"`
-	UpdatedAt     string   `json:"updatedAt"`
-	Favorite      bool     `json:"favorite"`
-	FavoriteCount int      `json:"favoriteCount"`
-	Author        *Profile `json:"author"`
-}
-
-type Comment struct {
-	ID        int      `json:"id"`
-	CreatedAt string   `json:"createdAt"`
-	UpdatedAt string   `json:"updatedAt"`
-	Body      string   `json:"body"`
-	Author    *Profile `json:"author"`
-}
-
 type Login struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
@@ -47,23 +25,9 @@ type RefreshTokenInput struct {
 	Token string `json:"token"`
 }
 
-type Tag struct {
-	ID     int    `json:"id"`
-	TagStr string `json:"tagStr"`
-}
-
 type UpdateUser struct {
 	Username *string `json:"username"`
 	Email    *string `json:"email"`
-	Bio      *string `json:"bio"`
-	Image    *string `json:"image"`
-}
-
-type User struct {
-	ID       int     `json:"id"`
-	Token    string  `json:"token"`
-	Email    string  `json:"email"`
-	Username string  `json:"username"`
 	Bio      *string `json:"bio"`
 	Image    *string `json:"image"`
 }

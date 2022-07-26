@@ -51,6 +51,12 @@ func (uc *UserCreate) SetPassword(s string) *UserCreate {
 	return uc
 }
 
+// SetToken sets the "token" field.
+func (uc *UserCreate) SetToken(s string) *UserCreate {
+	uc.mutation.SetToken(s)
+	return uc
+}
+
 // AddFollowerIDs adds the "followers" edge to the User entity by IDs.
 func (uc *UserCreate) AddFollowerIDs(ids ...int) *UserCreate {
 	uc.mutation.AddFollowerIDs(ids...)
@@ -217,6 +223,9 @@ func (uc *UserCreate) check() error {
 	if _, ok := uc.mutation.Password(); !ok {
 		return &ValidationError{Name: "password", err: errors.New(`ent: missing required field "User.password"`)}
 	}
+	if _, ok := uc.mutation.Token(); !ok {
+		return &ValidationError{Name: "token", err: errors.New(`ent: missing required field "User.token"`)}
+	}
 	return nil
 }
 
@@ -283,6 +292,14 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Column: user.FieldPassword,
 		})
 		_node.Password = value
+	}
+	if value, ok := uc.mutation.Token(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldToken,
+		})
+		_node.Token = value
 	}
 	if nodes := uc.mutation.FollowersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
