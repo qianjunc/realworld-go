@@ -36,7 +36,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (*ent.
 		SetEmail(input.Email).
 		SetImage("").
 		SetPassword(input.Password).
-		SetToken("").
+		SetToken("anything").
 		SetUsername(input.Username).
 		Save(ctx)
 }
@@ -136,11 +136,6 @@ func (r *queryResolver) Comments(ctx context.Context, slug string) ([]*ent.Comme
 	panic(fmt.Errorf("not implemented"))
 }
 
-// Token is the resolver for the token field.
-func (r *userResolver) Token(ctx context.Context, obj *ent.User) (string, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
 // Article returns ArticleResolver implementation.
 func (r *Resolver) Article() ArticleResolver { return &articleResolver{r} }
 
@@ -153,11 +148,7 @@ func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
-// User returns UserResolver implementation.
-func (r *Resolver) User() UserResolver { return &userResolver{r} }
-
 type articleResolver struct{ *Resolver }
 type commentResolver struct{ *Resolver }
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
-type userResolver struct{ *Resolver }

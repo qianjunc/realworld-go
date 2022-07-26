@@ -264,10 +264,18 @@ func (u *User) Node(ctx context.Context) (node *Node, err error) {
 		Name:  "username",
 		Value: string(buf),
 	}
-	if buf, err = json.Marshal(u.Bio); err != nil {
+	if buf, err = json.Marshal(u.Token); err != nil {
 		return nil, err
 	}
 	node.Fields[2] = &Field{
+		Type:  "string",
+		Name:  "token",
+		Value: string(buf),
+	}
+	if buf, err = json.Marshal(u.Bio); err != nil {
+		return nil, err
+	}
+	node.Fields[3] = &Field{
 		Type:  "string",
 		Name:  "bio",
 		Value: string(buf),
@@ -275,7 +283,7 @@ func (u *User) Node(ctx context.Context) (node *Node, err error) {
 	if buf, err = json.Marshal(u.Image); err != nil {
 		return nil, err
 	}
-	node.Fields[3] = &Field{
+	node.Fields[4] = &Field{
 		Type:  "string",
 		Name:  "image",
 		Value: string(buf),
@@ -283,17 +291,9 @@ func (u *User) Node(ctx context.Context) (node *Node, err error) {
 	if buf, err = json.Marshal(u.Password); err != nil {
 		return nil, err
 	}
-	node.Fields[4] = &Field{
-		Type:  "string",
-		Name:  "password",
-		Value: string(buf),
-	}
-	if buf, err = json.Marshal(u.Token); err != nil {
-		return nil, err
-	}
 	node.Fields[5] = &Field{
 		Type:  "string",
-		Name:  "token",
+		Name:  "password",
 		Value: string(buf),
 	}
 	node.Edges[0] = &Edge{

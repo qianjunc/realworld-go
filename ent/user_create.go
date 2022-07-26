@@ -33,6 +33,12 @@ func (uc *UserCreate) SetUsername(s string) *UserCreate {
 	return uc
 }
 
+// SetToken sets the "token" field.
+func (uc *UserCreate) SetToken(s string) *UserCreate {
+	uc.mutation.SetToken(s)
+	return uc
+}
+
 // SetBio sets the "bio" field.
 func (uc *UserCreate) SetBio(s string) *UserCreate {
 	uc.mutation.SetBio(s)
@@ -48,12 +54,6 @@ func (uc *UserCreate) SetImage(s string) *UserCreate {
 // SetPassword sets the "password" field.
 func (uc *UserCreate) SetPassword(s string) *UserCreate {
 	uc.mutation.SetPassword(s)
-	return uc
-}
-
-// SetToken sets the "token" field.
-func (uc *UserCreate) SetToken(s string) *UserCreate {
-	uc.mutation.SetToken(s)
 	return uc
 }
 
@@ -214,6 +214,9 @@ func (uc *UserCreate) check() error {
 	if _, ok := uc.mutation.Username(); !ok {
 		return &ValidationError{Name: "username", err: errors.New(`ent: missing required field "User.username"`)}
 	}
+	if _, ok := uc.mutation.Token(); !ok {
+		return &ValidationError{Name: "token", err: errors.New(`ent: missing required field "User.token"`)}
+	}
 	if _, ok := uc.mutation.Bio(); !ok {
 		return &ValidationError{Name: "bio", err: errors.New(`ent: missing required field "User.bio"`)}
 	}
@@ -222,9 +225,6 @@ func (uc *UserCreate) check() error {
 	}
 	if _, ok := uc.mutation.Password(); !ok {
 		return &ValidationError{Name: "password", err: errors.New(`ent: missing required field "User.password"`)}
-	}
-	if _, ok := uc.mutation.Token(); !ok {
-		return &ValidationError{Name: "token", err: errors.New(`ent: missing required field "User.token"`)}
 	}
 	return nil
 }
@@ -269,6 +269,14 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		})
 		_node.Username = value
 	}
+	if value, ok := uc.mutation.Token(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldToken,
+		})
+		_node.Token = value
+	}
 	if value, ok := uc.mutation.Bio(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -292,14 +300,6 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Column: user.FieldPassword,
 		})
 		_node.Password = value
-	}
-	if value, ok := uc.mutation.Token(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: user.FieldToken,
-		})
-		_node.Token = value
 	}
 	if nodes := uc.mutation.FollowersIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

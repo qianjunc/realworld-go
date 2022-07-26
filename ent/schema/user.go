@@ -16,11 +16,11 @@ func (User) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("email"),
 		field.String("username"),
+		field.String("token"),
 		field.String("bio"),
 		field.String("image"),
 		field.String("password").
 			Sensitive(),
-		field.String("token"),
 	}
 }
 

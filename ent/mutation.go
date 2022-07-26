@@ -1979,10 +1979,10 @@ type UserMutation struct {
 	id                *int
 	email             *string
 	username          *string
+	token             *string
 	bio               *string
 	image             *string
 	password          *string
-	token             *string
 	clearedFields     map[string]struct{}
 	followers         map[int]struct{}
 	removedfollowers  map[int]struct{}
@@ -2174,6 +2174,42 @@ func (m *UserMutation) ResetUsername() {
 	m.username = nil
 }
 
+// SetToken sets the "token" field.
+func (m *UserMutation) SetToken(s string) {
+	m.token = &s
+}
+
+// Token returns the value of the "token" field in the mutation.
+func (m *UserMutation) Token() (r string, exists bool) {
+	v := m.token
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldToken returns the old "token" field's value of the User entity.
+// If the User object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *UserMutation) OldToken(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldToken is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldToken requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldToken: %w", err)
+	}
+	return oldValue.Token, nil
+}
+
+// ResetToken resets all changes to the "token" field.
+func (m *UserMutation) ResetToken() {
+	m.token = nil
+}
+
 // SetBio sets the "bio" field.
 func (m *UserMutation) SetBio(s string) {
 	m.bio = &s
@@ -2280,42 +2316,6 @@ func (m *UserMutation) OldPassword(ctx context.Context) (v string, err error) {
 // ResetPassword resets all changes to the "password" field.
 func (m *UserMutation) ResetPassword() {
 	m.password = nil
-}
-
-// SetToken sets the "token" field.
-func (m *UserMutation) SetToken(s string) {
-	m.token = &s
-}
-
-// Token returns the value of the "token" field in the mutation.
-func (m *UserMutation) Token() (r string, exists bool) {
-	v := m.token
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldToken returns the old "token" field's value of the User entity.
-// If the User object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *UserMutation) OldToken(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldToken is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldToken requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldToken: %w", err)
-	}
-	return oldValue.Token, nil
-}
-
-// ResetToken resets all changes to the "token" field.
-func (m *UserMutation) ResetToken() {
-	m.token = nil
 }
 
 // AddFollowerIDs adds the "followers" edge to the User entity by ids.
@@ -2614,6 +2614,9 @@ func (m *UserMutation) Fields() []string {
 	if m.username != nil {
 		fields = append(fields, user.FieldUsername)
 	}
+	if m.token != nil {
+		fields = append(fields, user.FieldToken)
+	}
 	if m.bio != nil {
 		fields = append(fields, user.FieldBio)
 	}
@@ -2622,9 +2625,6 @@ func (m *UserMutation) Fields() []string {
 	}
 	if m.password != nil {
 		fields = append(fields, user.FieldPassword)
-	}
-	if m.token != nil {
-		fields = append(fields, user.FieldToken)
 	}
 	return fields
 }
@@ -2638,14 +2638,14 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.Email()
 	case user.FieldUsername:
 		return m.Username()
+	case user.FieldToken:
+		return m.Token()
 	case user.FieldBio:
 		return m.Bio()
 	case user.FieldImage:
 		return m.Image()
 	case user.FieldPassword:
 		return m.Password()
-	case user.FieldToken:
-		return m.Token()
 	}
 	return nil, false
 }
@@ -2659,14 +2659,14 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldEmail(ctx)
 	case user.FieldUsername:
 		return m.OldUsername(ctx)
+	case user.FieldToken:
+		return m.OldToken(ctx)
 	case user.FieldBio:
 		return m.OldBio(ctx)
 	case user.FieldImage:
 		return m.OldImage(ctx)
 	case user.FieldPassword:
 		return m.OldPassword(ctx)
-	case user.FieldToken:
-		return m.OldToken(ctx)
 	}
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
@@ -2690,6 +2690,13 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetUsername(v)
 		return nil
+	case user.FieldToken:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetToken(v)
+		return nil
 	case user.FieldBio:
 		v, ok := value.(string)
 		if !ok {
@@ -2710,13 +2717,6 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPassword(v)
-		return nil
-	case user.FieldToken:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetToken(v)
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
@@ -2773,6 +2773,9 @@ func (m *UserMutation) ResetField(name string) error {
 	case user.FieldUsername:
 		m.ResetUsername()
 		return nil
+	case user.FieldToken:
+		m.ResetToken()
+		return nil
 	case user.FieldBio:
 		m.ResetBio()
 		return nil
@@ -2781,9 +2784,6 @@ func (m *UserMutation) ResetField(name string) error {
 		return nil
 	case user.FieldPassword:
 		m.ResetPassword()
-		return nil
-	case user.FieldToken:
-		m.ResetToken()
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
