@@ -71,6 +71,7 @@ input NewUser {
 input UpdateUser {
   username: String
   email: String
+  token: String
   bio: String
   image: String
 }

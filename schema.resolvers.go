@@ -7,11 +7,12 @@ import (
 	"context"
 	"fmt"
 	"testrealworld/ent"
+	"testrealworld/ent/user"
 )
 
 // Taglist is the resolver for the taglist field.
 func (r *articleResolver) Taglist(ctx context.Context, obj *ent.Article) ([]*ent.Tag, error) {
-	panic(fmt.Errorf("not implemented"))
+	return r.client.Tag.Query().All(ctx)
 }
 
 // Favorite is the resolver for the favorite field.
@@ -43,12 +44,37 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (*ent.
 
 // UpdateUser is the resolver for the updateUser field.
 func (r *mutationResolver) UpdateUser(ctx context.Context, input UpdateUser) (*ent.User, error) {
-	panic(fmt.Errorf("not implemented"))
+	users, err := r.client.User.
+		Query().
+		Where(
+			user.Token(*input.Token),
+		).
+		All(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return users[0].Update().
+		SetBio(*input.Bio).
+		SetEmail(*input.Email).
+		SetImage(*input.Image).
+		SetUsername(*input.Username).
+		Save(ctx)
 }
 
 // Login is the resolver for the login field.
 func (r *mutationResolver) Login(ctx context.Context, input Login) (*ent.User, error) {
-	panic(fmt.Errorf("not implemented"))
+	users, err := r.client.User.
+		Query().
+		Where(
+			user.Username(*&input.Username),
+			user.Password(*&input.Password),
+		).
+		All(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return users[0], nil
 }
 
 // RefreshToken is the resolver for the refreshToken field.
@@ -108,7 +134,18 @@ func (r *queryResolver) User(ctx context.Context) (*ent.User, error) {
 
 // Profile is the resolver for the profile field.
 func (r *queryResolver) Profile(ctx context.Context, username string) (*Profile, error) {
-	panic(fmt.Errorf("not implemented"))
+	var profile Profile
+	err := r.client.User.
+		Query().
+		Where(
+			user.Username(username),
+		).
+		Select(user.FieldID, user.FieldUsername, user.FieldBio, user.FieldEmail, user.FieldImage).
+		Scan(ctx, &profile)
+	if err != nil {
+		return nil, err
+	}
+	return &profile, nil
 }
 
 // AllTags is the resolver for the allTags field.

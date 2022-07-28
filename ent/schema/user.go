@@ -1,6 +1,8 @@
 package schema
 
 import (
+	"testrealworld/ent/privacy"
+
 	"entgo.io/ent"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
@@ -15,7 +17,8 @@ type User struct {
 func (User) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("email"),
-		field.String("username"),
+		field.String("username").
+			Unique(),
 		field.String("token"),
 		field.String("bio"),
 		field.String("image"),
@@ -36,5 +39,19 @@ func (User) Edges() []ent.Edge {
 		edge.To("myComments", Comment.Type),
 		// articleAuthor
 		edge.To("articles", Article.Type),
+	}
+}
+
+// Policy defines the privacy policy of the User.
+func (User) Policy() ent.Policy {
+	return privacy.Policy{
+		Mutation: privacy.MutationPolicy{
+			// Deny if not set otherwise.
+			privacy.AlwaysDenyRule(),
+		},
+		Query: privacy.QueryPolicy{
+			// Allow any viewer to read anything.
+			privacy.AlwaysAllowRule(),
+		},
 	}
 }
