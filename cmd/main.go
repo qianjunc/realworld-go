@@ -6,11 +6,13 @@ import (
 	"net/http"
 	"testrealworld"
 
+	"testrealworld/auth"
 	"testrealworld/ent"
 	"testrealworld/ent/migrate"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/go-chi/chi"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -28,6 +30,10 @@ func main() {
 	); err != nil {
 		log.Fatal("opening ent client", err)
 	}
+
+	router := chi.NewRouter()
+
+	router.Use(auth.Middleware(client))
 
 	// Configure the server and start listening on :8081.
 	srv := handler.NewDefaultServer(testrealworld.NewSchema(client))
