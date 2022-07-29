@@ -33,6 +33,12 @@ func (uc *UserCreate) SetUsername(s string) *UserCreate {
 	return uc
 }
 
+// SetToken sets the "token" field.
+func (uc *UserCreate) SetToken(s string) *UserCreate {
+	uc.mutation.SetToken(s)
+	return uc
+}
+
 // SetBio sets the "bio" field.
 func (uc *UserCreate) SetBio(s string) *UserCreate {
 	uc.mutation.SetBio(s)
@@ -208,6 +214,9 @@ func (uc *UserCreate) check() error {
 	if _, ok := uc.mutation.Username(); !ok {
 		return &ValidationError{Name: "username", err: errors.New(`ent: missing required field "User.username"`)}
 	}
+	if _, ok := uc.mutation.Token(); !ok {
+		return &ValidationError{Name: "token", err: errors.New(`ent: missing required field "User.token"`)}
+	}
 	if _, ok := uc.mutation.Bio(); !ok {
 		return &ValidationError{Name: "bio", err: errors.New(`ent: missing required field "User.bio"`)}
 	}
@@ -259,6 +268,14 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Column: user.FieldUsername,
 		})
 		_node.Username = value
+	}
+	if value, ok := uc.mutation.Token(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldToken,
+		})
+		_node.Token = value
 	}
 	if value, ok := uc.mutation.Bio(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

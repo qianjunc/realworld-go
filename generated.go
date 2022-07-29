@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"sync"
 	"sync/atomic"
+	"testrealworld/ent"
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
@@ -36,6 +37,8 @@ type Config struct {
 }
 
 type ResolverRoot interface {
+	Article() ArticleResolver
+	Comment() CommentResolver
 	Mutation() MutationResolver
 	Query() QueryResolver
 }
@@ -115,29 +118,39 @@ type ComplexityRoot struct {
 	}
 }
 
+type ArticleResolver interface {
+	Taglist(ctx context.Context, obj *ent.Article) ([]*ent.Tag, error)
+
+	Favorite(ctx context.Context, obj *ent.Article) (bool, error)
+
+	Author(ctx context.Context, obj *ent.Article) (*Profile, error)
+}
+type CommentResolver interface {
+	Author(ctx context.Context, obj *ent.Comment) (*Profile, error)
+}
 type MutationResolver interface {
-	CreateUser(ctx context.Context, input NewUser) (*User, error)
-	UpdateUser(ctx context.Context, input UpdateUser) (*User, error)
-	Login(ctx context.Context, input Login) (*User, error)
+	CreateUser(ctx context.Context, input NewUser) (*ent.User, error)
+	UpdateUser(ctx context.Context, input UpdateUser) (*ent.User, error)
+	Login(ctx context.Context, input Login) (*ent.User, error)
 	RefreshToken(ctx context.Context, input RefreshTokenInput) (string, error)
 	FollowProfile(ctx context.Context, username string) (*Profile, error)
 	UnfollowProfile(ctx context.Context, username string) (*Profile, error)
-	CreateArticle(ctx context.Context, input NewArticle) (*Article, error)
-	UpdateArticle(ctx context.Context, slug string, input UpdateArticle) (*Article, error)
+	CreateArticle(ctx context.Context, input NewArticle) (*ent.Article, error)
+	UpdateArticle(ctx context.Context, slug string, input UpdateArticle) (*ent.Article, error)
 	DeleteArticle(ctx context.Context, slug string) (*bool, error)
-	FavoriteArticle(ctx context.Context, slug string) (*Article, error)
-	UnfavoriteArticle(ctx context.Context, slug string) (*Article, error)
-	CreateComment(ctx context.Context, slug string, body string) (*Comment, error)
+	FavoriteArticle(ctx context.Context, slug string) (*ent.Article, error)
+	UnfavoriteArticle(ctx context.Context, slug string) (*ent.Article, error)
+	CreateComment(ctx context.Context, slug string, body string) (*ent.Comment, error)
 	DeleteComment(ctx context.Context, slug string, id int) (*bool, error)
 }
 type QueryResolver interface {
-	User(ctx context.Context) (*User, error)
+	User(ctx context.Context) (*ent.User, error)
 	Profile(ctx context.Context, username string) (*Profile, error)
-	AllTags(ctx context.Context) ([]*Tag, error)
-	Articles(ctx context.Context) ([]*Article, error)
-	ArticlesFeed(ctx context.Context) ([]*Article, error)
-	Article(ctx context.Context, slug string) (*Article, error)
-	Comments(ctx context.Context, slug string) ([]*Comment, error)
+	AllTags(ctx context.Context) ([]*ent.Tag, error)
+	Articles(ctx context.Context) ([]*ent.Article, error)
+	ArticlesFeed(ctx context.Context) ([]*ent.Article, error)
+	Article(ctx context.Context, slug string) (*ent.Article, error)
+	Comments(ctx context.Context, slug string) ([]*ent.Comment, error)
 }
 
 type executableSchema struct {
@@ -991,7 +1004,7 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _Article_id(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_id(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1035,7 +1048,7 @@ func (ec *executionContext) fieldContext_Article_id(ctx context.Context, field g
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_slug(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_slug(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_slug(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1079,7 +1092,7 @@ func (ec *executionContext) fieldContext_Article_slug(ctx context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_title(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_title(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_title(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1123,7 +1136,7 @@ func (ec *executionContext) fieldContext_Article_title(ctx context.Context, fiel
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_description(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_description(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_description(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1167,7 +1180,7 @@ func (ec *executionContext) fieldContext_Article_description(ctx context.Context
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_body(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_body(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_body(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1211,7 +1224,7 @@ func (ec *executionContext) fieldContext_Article_body(ctx context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_taglist(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_taglist(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_taglist(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1225,7 +1238,7 @@ func (ec *executionContext) _Article_taglist(ctx context.Context, field graphql.
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Taglist, nil
+		return ec.resolvers.Article().Taglist(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1237,17 +1250,17 @@ func (ec *executionContext) _Article_taglist(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*Tag)
+	res := resTmp.([]*ent.Tag)
 	fc.Result = res
-	return ec.marshalNTag2ᚕᚖtestrealworldᚐTagᚄ(ctx, field.Selections, res)
+	return ec.marshalNTag2ᚕᚖtestrealworldᚋentᚐTagᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Article_taglist(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Article",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "id":
@@ -1261,7 +1274,7 @@ func (ec *executionContext) fieldContext_Article_taglist(ctx context.Context, fi
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_createdAt(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_createdAt(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_createdAt(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1305,7 +1318,7 @@ func (ec *executionContext) fieldContext_Article_createdAt(ctx context.Context, 
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_updatedAt(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_updatedAt(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_updatedAt(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1349,7 +1362,7 @@ func (ec *executionContext) fieldContext_Article_updatedAt(ctx context.Context, 
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_favorite(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_favorite(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_favorite(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1363,7 +1376,7 @@ func (ec *executionContext) _Article_favorite(ctx context.Context, field graphql
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Favorite, nil
+		return ec.resolvers.Article().Favorite(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1384,8 +1397,8 @@ func (ec *executionContext) fieldContext_Article_favorite(ctx context.Context, f
 	fc = &graphql.FieldContext{
 		Object:     "Article",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type Boolean does not have child fields")
 		},
@@ -1393,7 +1406,7 @@ func (ec *executionContext) fieldContext_Article_favorite(ctx context.Context, f
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_favoriteCount(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_favoriteCount(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_favoriteCount(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1437,7 +1450,7 @@ func (ec *executionContext) fieldContext_Article_favoriteCount(ctx context.Conte
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_author(ctx context.Context, field graphql.CollectedField, obj *Article) (ret graphql.Marshaler) {
+func (ec *executionContext) _Article_author(ctx context.Context, field graphql.CollectedField, obj *ent.Article) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Article_author(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1451,7 +1464,7 @@ func (ec *executionContext) _Article_author(ctx context.Context, field graphql.C
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Author, nil
+		return ec.resolvers.Article().Author(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1472,8 +1485,8 @@ func (ec *executionContext) fieldContext_Article_author(ctx context.Context, fie
 	fc = &graphql.FieldContext{
 		Object:     "Article",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "id":
@@ -1493,7 +1506,7 @@ func (ec *executionContext) fieldContext_Article_author(ctx context.Context, fie
 	return fc, nil
 }
 
-func (ec *executionContext) _Comment_id(ctx context.Context, field graphql.CollectedField, obj *Comment) (ret graphql.Marshaler) {
+func (ec *executionContext) _Comment_id(ctx context.Context, field graphql.CollectedField, obj *ent.Comment) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Comment_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1537,7 +1550,7 @@ func (ec *executionContext) fieldContext_Comment_id(ctx context.Context, field g
 	return fc, nil
 }
 
-func (ec *executionContext) _Comment_createdAt(ctx context.Context, field graphql.CollectedField, obj *Comment) (ret graphql.Marshaler) {
+func (ec *executionContext) _Comment_createdAt(ctx context.Context, field graphql.CollectedField, obj *ent.Comment) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Comment_createdAt(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1581,7 +1594,7 @@ func (ec *executionContext) fieldContext_Comment_createdAt(ctx context.Context, 
 	return fc, nil
 }
 
-func (ec *executionContext) _Comment_updatedAt(ctx context.Context, field graphql.CollectedField, obj *Comment) (ret graphql.Marshaler) {
+func (ec *executionContext) _Comment_updatedAt(ctx context.Context, field graphql.CollectedField, obj *ent.Comment) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Comment_updatedAt(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1625,7 +1638,7 @@ func (ec *executionContext) fieldContext_Comment_updatedAt(ctx context.Context, 
 	return fc, nil
 }
 
-func (ec *executionContext) _Comment_body(ctx context.Context, field graphql.CollectedField, obj *Comment) (ret graphql.Marshaler) {
+func (ec *executionContext) _Comment_body(ctx context.Context, field graphql.CollectedField, obj *ent.Comment) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Comment_body(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1669,7 +1682,7 @@ func (ec *executionContext) fieldContext_Comment_body(ctx context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _Comment_author(ctx context.Context, field graphql.CollectedField, obj *Comment) (ret graphql.Marshaler) {
+func (ec *executionContext) _Comment_author(ctx context.Context, field graphql.CollectedField, obj *ent.Comment) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Comment_author(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -1683,7 +1696,7 @@ func (ec *executionContext) _Comment_author(ctx context.Context, field graphql.C
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Author, nil
+		return ec.resolvers.Comment().Author(rctx, obj)
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1704,8 +1717,8 @@ func (ec *executionContext) fieldContext_Comment_author(ctx context.Context, fie
 	fc = &graphql.FieldContext{
 		Object:     "Comment",
 		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
+		IsMethod:   true,
+		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
 			case "id":
@@ -1751,9 +1764,9 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*User)
+	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖtestrealworldᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖtestrealworldᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createUser(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1820,9 +1833,9 @@ func (ec *executionContext) _Mutation_updateUser(ctx context.Context, field grap
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*User)
+	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖtestrealworldᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖtestrealworldᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateUser(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1889,9 +1902,9 @@ func (ec *executionContext) _Mutation_login(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*User)
+	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖtestrealworldᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖtestrealworldᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_login(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2144,9 +2157,9 @@ func (ec *executionContext) _Mutation_createArticle(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Article)
+	res := resTmp.(*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖtestrealworldᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖtestrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createArticle(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2220,9 +2233,9 @@ func (ec *executionContext) _Mutation_updateArticle(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Article)
+	res := resTmp.(*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖtestrealworldᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖtestrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_updateArticle(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2348,9 +2361,9 @@ func (ec *executionContext) _Mutation_favoriteArticle(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Article)
+	res := resTmp.(*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖtestrealworldᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖtestrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_favoriteArticle(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2424,9 +2437,9 @@ func (ec *executionContext) _Mutation_unfavoriteArticle(ctx context.Context, fie
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Article)
+	res := resTmp.(*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖtestrealworldᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖtestrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_unfavoriteArticle(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2500,9 +2513,9 @@ func (ec *executionContext) _Mutation_createComment(ctx context.Context, field g
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Comment)
+	res := resTmp.(*ent.Comment)
 	fc.Result = res
-	return ec.marshalOComment2ᚖtestrealworldᚐComment(ctx, field.Selections, res)
+	return ec.marshalOComment2ᚖtestrealworldᚋentᚐComment(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_createComment(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2830,9 +2843,9 @@ func (ec *executionContext) _Query_user(ctx context.Context, field graphql.Colle
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*User)
+	res := resTmp.(*ent.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖtestrealworldᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖtestrealworldᚋentᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2952,9 +2965,9 @@ func (ec *executionContext) _Query_allTags(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*Tag)
+	res := resTmp.([]*ent.Tag)
 	fc.Result = res
-	return ec.marshalNTag2ᚕᚖtestrealworldᚐTagᚄ(ctx, field.Selections, res)
+	return ec.marshalNTag2ᚕᚖtestrealworldᚋentᚐTagᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_allTags(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2999,9 +3012,9 @@ func (ec *executionContext) _Query_articles(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*Article)
+	res := resTmp.([]*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚕᚖtestrealworldᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚕᚖtestrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_articles(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3064,9 +3077,9 @@ func (ec *executionContext) _Query_articlesFeed(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*Article)
+	res := resTmp.([]*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚕᚖtestrealworldᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚕᚖtestrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_articlesFeed(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3129,9 +3142,9 @@ func (ec *executionContext) _Query_article(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*Article)
+	res := resTmp.(*ent.Article)
 	fc.Result = res
-	return ec.marshalOArticle2ᚖtestrealworldᚐArticle(ctx, field.Selections, res)
+	return ec.marshalOArticle2ᚖtestrealworldᚋentᚐArticle(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_article(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3205,9 +3218,9 @@ func (ec *executionContext) _Query_comments(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*Comment)
+	res := resTmp.([]*ent.Comment)
 	fc.Result = res
-	return ec.marshalOComment2ᚕᚖtestrealworldᚐCommentᚄ(ctx, field.Selections, res)
+	return ec.marshalOComment2ᚕᚖtestrealworldᚋentᚐCommentᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_comments(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3375,7 +3388,7 @@ func (ec *executionContext) fieldContext_Query___schema(ctx context.Context, fie
 	return fc, nil
 }
 
-func (ec *executionContext) _Tag_id(ctx context.Context, field graphql.CollectedField, obj *Tag) (ret graphql.Marshaler) {
+func (ec *executionContext) _Tag_id(ctx context.Context, field graphql.CollectedField, obj *ent.Tag) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Tag_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3419,7 +3432,7 @@ func (ec *executionContext) fieldContext_Tag_id(ctx context.Context, field graph
 	return fc, nil
 }
 
-func (ec *executionContext) _Tag_tagStr(ctx context.Context, field graphql.CollectedField, obj *Tag) (ret graphql.Marshaler) {
+func (ec *executionContext) _Tag_tagStr(ctx context.Context, field graphql.CollectedField, obj *ent.Tag) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Tag_tagStr(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3463,7 +3476,7 @@ func (ec *executionContext) fieldContext_Tag_tagStr(ctx context.Context, field g
 	return fc, nil
 }
 
-func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3507,7 +3520,7 @@ func (ec *executionContext) fieldContext_User_id(ctx context.Context, field grap
 	return fc, nil
 }
 
-func (ec *executionContext) _User_token(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_token(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_token(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3551,7 +3564,7 @@ func (ec *executionContext) fieldContext_User_token(ctx context.Context, field g
 	return fc, nil
 }
 
-func (ec *executionContext) _User_email(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_email(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_email(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3595,7 +3608,7 @@ func (ec *executionContext) fieldContext_User_email(ctx context.Context, field g
 	return fc, nil
 }
 
-func (ec *executionContext) _User_username(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_username(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_username(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3639,7 +3652,7 @@ func (ec *executionContext) fieldContext_User_username(ctx context.Context, fiel
 	return fc, nil
 }
 
-func (ec *executionContext) _User_bio(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_bio(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_bio(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3662,9 +3675,9 @@ func (ec *executionContext) _User_bio(ctx context.Context, field graphql.Collect
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(string)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOString2string(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_bio(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3680,7 +3693,7 @@ func (ec *executionContext) fieldContext_User_bio(ctx context.Context, field gra
 	return fc, nil
 }
 
-func (ec *executionContext) _User_image(ctx context.Context, field graphql.CollectedField, obj *User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_image(ctx context.Context, field graphql.CollectedField, obj *ent.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_image(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -3703,9 +3716,9 @@ func (ec *executionContext) _User_image(ctx context.Context, field graphql.Colle
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(string)
 	fc.Result = res
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOString2string(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_User_image(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -5609,7 +5622,7 @@ func (ec *executionContext) unmarshalInputUpdateUser(ctx context.Context, obj in
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"username", "email", "bio", "image"}
+	fieldsInOrder := [...]string{"username", "email", "token", "bio", "image"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -5629,6 +5642,14 @@ func (ec *executionContext) unmarshalInputUpdateUser(ctx context.Context, obj in
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
 			it.Email, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "token":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("token"))
+			it.Token, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -5760,7 +5781,7 @@ func (ec *executionContext) unmarshalInputupdateArticle(ctx context.Context, obj
 
 var articleImplementors = []string{"Article"}
 
-func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, obj *Article) graphql.Marshaler {
+func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, obj *ent.Article) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, articleImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -5773,78 +5794,117 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = ec._Article_id(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "slug":
 
 			out.Values[i] = ec._Article_slug(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "title":
 
 			out.Values[i] = ec._Article_title(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "description":
 
 			out.Values[i] = ec._Article_description(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "body":
 
 			out.Values[i] = ec._Article_body(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "taglist":
+			field := field
 
-			out.Values[i] = ec._Article_taglist(ctx, field, obj)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Article_taglist(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		case "createdAt":
 
 			out.Values[i] = ec._Article_createdAt(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "updatedAt":
 
 			out.Values[i] = ec._Article_updatedAt(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "favorite":
+			field := field
 
-			out.Values[i] = ec._Article_favorite(ctx, field, obj)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Article_favorite(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		case "favoriteCount":
 
 			out.Values[i] = ec._Article_favoriteCount(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "author":
+			field := field
 
-			out.Values[i] = ec._Article_author(ctx, field, obj)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Article_author(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -5858,7 +5918,7 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 
 var commentImplementors = []string{"Comment"}
 
-func (ec *executionContext) _Comment(ctx context.Context, sel ast.SelectionSet, obj *Comment) graphql.Marshaler {
+func (ec *executionContext) _Comment(ctx context.Context, sel ast.SelectionSet, obj *ent.Comment) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, commentImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -5871,36 +5931,49 @@ func (ec *executionContext) _Comment(ctx context.Context, sel ast.SelectionSet, 
 			out.Values[i] = ec._Comment_id(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "createdAt":
 
 			out.Values[i] = ec._Comment_createdAt(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "updatedAt":
 
 			out.Values[i] = ec._Comment_updatedAt(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "body":
 
 			out.Values[i] = ec._Comment_body(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
-				invalids++
+				atomic.AddUint32(&invalids, 1)
 			}
 		case "author":
+			field := field
 
-			out.Values[i] = ec._Comment_author(ctx, field, obj)
-
-			if out.Values[i] == graphql.Null {
-				invalids++
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Comment_author(ctx, field, obj)
+				if res == graphql.Null {
+					atomic.AddUint32(&invalids, 1)
+				}
+				return res
 			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return innerFunc(ctx)
+
+			})
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -6275,7 +6348,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 
 var tagImplementors = []string{"Tag"}
 
-func (ec *executionContext) _Tag(ctx context.Context, sel ast.SelectionSet, obj *Tag) graphql.Marshaler {
+func (ec *executionContext) _Tag(ctx context.Context, sel ast.SelectionSet, obj *ent.Tag) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, tagImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -6310,7 +6383,7 @@ func (ec *executionContext) _Tag(ctx context.Context, sel ast.SelectionSet, obj 
 
 var userImplementors = []string{"User"}
 
-func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *User) graphql.Marshaler {
+func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *ent.User) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, userImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -6698,7 +6771,7 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNComment2ᚖtestrealworldᚐComment(ctx context.Context, sel ast.SelectionSet, v *Comment) graphql.Marshaler {
+func (ec *executionContext) marshalNComment2ᚖtestrealworldᚋentᚐComment(ctx context.Context, sel ast.SelectionSet, v *ent.Comment) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -6814,7 +6887,7 @@ func (ec *executionContext) marshalNString2ᚕstringᚄ(ctx context.Context, sel
 	return ret
 }
 
-func (ec *executionContext) marshalNTag2ᚕᚖtestrealworldᚐTagᚄ(ctx context.Context, sel ast.SelectionSet, v []*Tag) graphql.Marshaler {
+func (ec *executionContext) marshalNTag2ᚕᚖtestrealworldᚋentᚐTagᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.Tag) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -6838,7 +6911,7 @@ func (ec *executionContext) marshalNTag2ᚕᚖtestrealworldᚐTagᚄ(ctx context
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTag2ᚖtestrealworldᚐTag(ctx, sel, v[i])
+			ret[i] = ec.marshalNTag2ᚖtestrealworldᚋentᚐTag(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -6858,7 +6931,7 @@ func (ec *executionContext) marshalNTag2ᚕᚖtestrealworldᚐTagᚄ(ctx context
 	return ret
 }
 
-func (ec *executionContext) marshalNTag2ᚖtestrealworldᚐTag(ctx context.Context, sel ast.SelectionSet, v *Tag) graphql.Marshaler {
+func (ec *executionContext) marshalNTag2ᚖtestrealworldᚋentᚐTag(ctx context.Context, sel ast.SelectionSet, v *ent.Tag) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -6873,11 +6946,11 @@ func (ec *executionContext) unmarshalNUpdateUser2testrealworldᚐUpdateUser(ctx 
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNUser2testrealworldᚐUser(ctx context.Context, sel ast.SelectionSet, v User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2testrealworldᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v ent.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚖtestrealworldᚐUser(ctx context.Context, sel ast.SelectionSet, v *User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖtestrealworldᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v *ent.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -7150,7 +7223,7 @@ func (ec *executionContext) unmarshalNupdateArticle2testrealworldᚐUpdateArticl
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOArticle2ᚕᚖtestrealworldᚐArticle(ctx context.Context, sel ast.SelectionSet, v []*Article) graphql.Marshaler {
+func (ec *executionContext) marshalOArticle2ᚕᚖtestrealworldᚋentᚐArticle(ctx context.Context, sel ast.SelectionSet, v []*ent.Article) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -7177,7 +7250,7 @@ func (ec *executionContext) marshalOArticle2ᚕᚖtestrealworldᚐArticle(ctx co
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOArticle2ᚖtestrealworldᚐArticle(ctx, sel, v[i])
+			ret[i] = ec.marshalOArticle2ᚖtestrealworldᚋentᚐArticle(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -7191,7 +7264,7 @@ func (ec *executionContext) marshalOArticle2ᚕᚖtestrealworldᚐArticle(ctx co
 	return ret
 }
 
-func (ec *executionContext) marshalOArticle2ᚖtestrealworldᚐArticle(ctx context.Context, sel ast.SelectionSet, v *Article) graphql.Marshaler {
+func (ec *executionContext) marshalOArticle2ᚖtestrealworldᚋentᚐArticle(ctx context.Context, sel ast.SelectionSet, v *ent.Article) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -7224,7 +7297,7 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) marshalOComment2ᚕᚖtestrealworldᚐCommentᚄ(ctx context.Context, sel ast.SelectionSet, v []*Comment) graphql.Marshaler {
+func (ec *executionContext) marshalOComment2ᚕᚖtestrealworldᚋentᚐCommentᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.Comment) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -7251,7 +7324,7 @@ func (ec *executionContext) marshalOComment2ᚕᚖtestrealworldᚐCommentᚄ(ctx
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNComment2ᚖtestrealworldᚐComment(ctx, sel, v[i])
+			ret[i] = ec.marshalNComment2ᚖtestrealworldᚋentᚐComment(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -7271,7 +7344,7 @@ func (ec *executionContext) marshalOComment2ᚕᚖtestrealworldᚐCommentᚄ(ctx
 	return ret
 }
 
-func (ec *executionContext) marshalOComment2ᚖtestrealworldᚐComment(ctx context.Context, sel ast.SelectionSet, v *Comment) graphql.Marshaler {
+func (ec *executionContext) marshalOComment2ᚖtestrealworldᚋentᚐComment(ctx context.Context, sel ast.SelectionSet, v *ent.Comment) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -7283,6 +7356,16 @@ func (ec *executionContext) marshalOProfile2ᚖtestrealworldᚐProfile(ctx conte
 		return graphql.Null
 	}
 	return ec._Profile(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOString2string(ctx context.Context, v interface{}) (string, error) {
+	res, err := graphql.UnmarshalString(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOString2string(ctx context.Context, sel ast.SelectionSet, v string) graphql.Marshaler {
+	res := graphql.MarshalString(v)
+	return res
 }
 
 func (ec *executionContext) unmarshalOString2ᚖstring(ctx context.Context, v interface{}) (*string, error) {
@@ -7301,7 +7384,7 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	return res
 }
 
-func (ec *executionContext) marshalOUser2ᚖtestrealworldᚐUser(ctx context.Context, sel ast.SelectionSet, v *User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚖtestrealworldᚋentᚐUser(ctx context.Context, sel ast.SelectionSet, v *ent.User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

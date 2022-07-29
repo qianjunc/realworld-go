@@ -11,6 +11,8 @@ const (
 	FieldEmail = "email"
 	// FieldUsername holds the string denoting the username field in the database.
 	FieldUsername = "username"
+	// FieldToken holds the string denoting the token field in the database.
+	FieldToken = "token"
 	// FieldBio holds the string denoting the bio field in the database.
 	FieldBio = "bio"
 	// FieldImage holds the string denoting the image field in the database.
@@ -59,6 +61,7 @@ var Columns = []string{
 	FieldID,
 	FieldEmail,
 	FieldUsername,
+	FieldToken,
 	FieldBio,
 	FieldImage,
 	FieldPassword,

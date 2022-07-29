@@ -19,12 +19,14 @@ type User struct {
 	Email string `json:"email,omitempty"`
 	// Username holds the value of the "username" field.
 	Username string `json:"username,omitempty"`
+	// Token holds the value of the "token" field.
+	Token string `json:"token,omitempty"`
 	// Bio holds the value of the "bio" field.
 	Bio string `json:"bio,omitempty"`
 	// Image holds the value of the "image" field.
 	Image string `json:"image,omitempty"`
 	// Password holds the value of the "password" field.
-	Password string `json:"password,omitempty"`
+	Password string `json:"-"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the UserQuery when eager-loading is set.
 	Edges UserEdges `json:"edges"`
@@ -101,7 +103,7 @@ func (*User) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case user.FieldID:
 			values[i] = new(sql.NullInt64)
-		case user.FieldEmail, user.FieldUsername, user.FieldBio, user.FieldImage, user.FieldPassword:
+		case user.FieldEmail, user.FieldUsername, user.FieldToken, user.FieldBio, user.FieldImage, user.FieldPassword:
 			values[i] = new(sql.NullString)
 		default:
 			return nil, fmt.Errorf("unexpected column %q for type User", columns[i])
@@ -135,6 +137,12 @@ func (u *User) assignValues(columns []string, values []interface{}) error {
 				return fmt.Errorf("unexpected type %T for field username", values[i])
 			} else if value.Valid {
 				u.Username = value.String
+			}
+		case user.FieldToken:
+			if value, ok := values[i].(*sql.NullString); !ok {
+				return fmt.Errorf("unexpected type %T for field token", values[i])
+			} else if value.Valid {
+				u.Token = value.String
 			}
 		case user.FieldBio:
 			if value, ok := values[i].(*sql.NullString); !ok {
@@ -213,14 +221,16 @@ func (u *User) String() string {
 	builder.WriteString("username=")
 	builder.WriteString(u.Username)
 	builder.WriteString(", ")
+	builder.WriteString("token=")
+	builder.WriteString(u.Token)
+	builder.WriteString(", ")
 	builder.WriteString("bio=")
 	builder.WriteString(u.Bio)
 	builder.WriteString(", ")
 	builder.WriteString("image=")
 	builder.WriteString(u.Image)
 	builder.WriteString(", ")
-	builder.WriteString("password=")
-	builder.WriteString(u.Password)
+	builder.WriteString("password=<sensitive>")
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -41,6 +41,12 @@ func (uu *UserUpdate) SetUsername(s string) *UserUpdate {
 	return uu
 }
 
+// SetToken sets the "token" field.
+func (uu *UserUpdate) SetToken(s string) *UserUpdate {
+	uu.mutation.SetToken(s)
+	return uu
+}
+
 // SetBio sets the "bio" field.
 func (uu *UserUpdate) SetBio(s string) *UserUpdate {
 	uu.mutation.SetBio(s)
@@ -328,6 +334,13 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: user.FieldUsername,
+		})
+	}
+	if value, ok := uu.mutation.Token(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldToken,
 		})
 	}
 	if value, ok := uu.mutation.Bio(); ok {
@@ -652,6 +665,12 @@ func (uuo *UserUpdateOne) SetUsername(s string) *UserUpdateOne {
 	return uuo
 }
 
+// SetToken sets the "token" field.
+func (uuo *UserUpdateOne) SetToken(s string) *UserUpdateOne {
+	uuo.mutation.SetToken(s)
+	return uuo
+}
+
 // SetBio sets the "bio" field.
 func (uuo *UserUpdateOne) SetBio(s string) *UserUpdateOne {
 	uuo.mutation.SetBio(s)
@@ -969,6 +988,13 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Type:   field.TypeString,
 			Value:  value,
 			Column: user.FieldUsername,
+		})
+	}
+	if value, ok := uuo.mutation.Token(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldToken,
 		})
 	}
 	if value, ok := uuo.mutation.Bio(); ok {
