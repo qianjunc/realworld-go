@@ -24,3 +24,14 @@ try this:
 `export GO111MODULE=on`
 
 then rerun previous step
+
+## branches
+There are two versions of this project
+### try-ent branch
+- does not connect to ent schema
+- use ent as a normal orm: directly call its function to manipulate and access data
+- then put them into model generated from graphql schema object
+
+### try-connect-model branch
+- connect to ent schema
+- return ent schema type and use ent field collection features to access different object
