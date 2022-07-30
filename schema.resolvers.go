@@ -6,8 +6,12 @@ package testrealworld
 import (
 	"context"
 	"fmt"
+	"testrealworld/auth"
+	"testrealworld/auth/jwt"
 	"testrealworld/ent"
 	"testrealworld/ent/user"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 // Taglist is the resolver for the taglist field.
@@ -32,22 +36,34 @@ func (r *commentResolver) Author(ctx context.Context, obj *ent.Comment) (*Profil
 
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (*ent.User, error) {
+	token, err := jwt.GenerateToken(input.Username)
+	if err != nil {
+		return nil, err
+	}
+	hashedPassword, err := HashPassword(input.Password)
+	if err != nil {
+		return nil, err
+	}
 	return r.client.User.Create().
 		SetBio("").
 		SetEmail(input.Email).
 		SetImage("").
-		SetPassword(input.Password).
-		SetToken("anything").
+		SetPassword(hashedPassword).
+		SetToken(token).
 		SetUsername(input.Username).
 		Save(ctx)
 }
 
 // UpdateUser is the resolver for the updateUser field.
 func (r *mutationResolver) UpdateUser(ctx context.Context, input UpdateUser) (*ent.User, error) {
+	currentUser := auth.ForContext(ctx)
+	if currentUser == nil {
+		return nil, fmt.Errorf("authentication failed")
+	}
 	users, err := r.client.User.
 		Query().
 		Where(
-			user.Token(*input.Token),
+			user.Username(currentUser.Username),
 		).
 		All(ctx)
 	if err != nil {
@@ -64,22 +80,42 @@ func (r *mutationResolver) UpdateUser(ctx context.Context, input UpdateUser) (*e
 
 // Login is the resolver for the login field.
 func (r *mutationResolver) Login(ctx context.Context, input Login) (*ent.User, error) {
+
 	users, err := r.client.User.
 		Query().
 		Where(
 			user.Username(*&input.Username),
-			user.Password(*&input.Password),
 		).
 		All(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return users[0], nil
+	hashedPassword := users[0].Password
+	if CheckPasswordHash(input.Password, hashedPassword) {
+		token, err := jwt.GenerateToken(input.Username)
+		if err != nil {
+			return nil, err
+		}
+		users[0].
+			Update().
+			SetToken(token).
+			Save(ctx)
+		return users[0], nil
+	}
+	return nil, fmt.Errorf("Authentication failed")
 }
 
 // RefreshToken is the resolver for the refreshToken field.
 func (r *mutationResolver) RefreshToken(ctx context.Context, input RefreshTokenInput) (string, error) {
-	panic(fmt.Errorf("not implemented"))
+	username, err := jwt.ParseToken(input.Token)
+	if err != nil {
+		return "", fmt.Errorf("access denied")
+	}
+	token, err := jwt.GenerateToken(username)
+	if err != nil {
+		return "", err
+	}
+	return token, nil
 }
 
 // FollowProfile is the resolver for the followProfile field.
@@ -189,3 +225,15 @@ type articleResolver struct{ *Resolver }
 type commentResolver struct{ *Resolver }
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+
+//HashPassword hashes given password
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
+}
+
+//CheckPassword hash compares raw password with it's hashed values
+func CheckPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
+}

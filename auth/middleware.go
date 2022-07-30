@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"testrealworld/auth/jwt"
@@ -42,8 +43,9 @@ func Middleware(client *ent.Client) func(http.Handler) http.Handler {
 				next.ServeHTTP(w, r)
 				return
 			}
+			fmt.Printf("%v", users[0].Username)
 			// put it in context
-			ctx := context.WithValue(r.Context(), userCtxKey, &users[0])
+			ctx := context.WithValue(r.Context(), userCtxKey, users[0])
 
 			// and call the next with our new context
 			r = r.WithContext(ctx)

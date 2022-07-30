@@ -37,12 +37,12 @@ func main() {
 
 	// Configure the server and start listening on :8081.
 	srv := handler.NewDefaultServer(testrealworld.NewSchema(client))
-	http.Handle("/",
+	router.Handle("/",
 		playground.Handler("Todo", "/query"),
 	)
-	http.Handle("/query", srv)
+	router.Handle("/query", srv)
 	log.Println("listening on :8081")
-	if err := http.ListenAndServe(":8081", nil); err != nil {
+	if err := http.ListenAndServe(":8081", router); err != nil {
 		log.Fatal("http server terminated", err)
 	}
 }
